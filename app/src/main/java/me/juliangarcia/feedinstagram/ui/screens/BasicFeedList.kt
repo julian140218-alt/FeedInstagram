@@ -1,0 +1,44 @@
+package me.juliangarcia.feedinstagram.ui.screens
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.lazy.items
+import me.juliangarcia.feedinstagram.model.Post
+import me.juliangarcia.feedinstagram.ui.components.PostCard
+
+@Composable
+fun BasicFeedList(posts: List<Post>) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+
+        item {
+            Text("Inicio del Feed")
+        }
+        items(
+            items = posts,
+            key = { post -> post.id }
+        ) { post ->
+            PostCard(post = post)
+        }
+    }
+}
+
+@Composable
+fun FeedWithIndex(posts: List<Post>) {
+    LazyColumn {
+        itemsIndexed(posts) { index, post ->
+            Text("Post #$index: ${post.username}")
+        }
+    }
+}
